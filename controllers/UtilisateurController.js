@@ -23,3 +23,15 @@ exports.createUser=async (request, response)=>{
         
 
 }
+
+
+exports.getAllUsers=async(request,response)=>{
+    try{
+        const users=await Utilisateur.findAll();
+        response.status(200).json({message: "Tous les utilisateurs ont été récupérer", usersList:users});
+    }catch(error){
+        response.status(500).json({message:"erreur de recuperation des utilisateurs", error:error.message});
+    }
+    
+
+}
