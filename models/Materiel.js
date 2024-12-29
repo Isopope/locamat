@@ -1,52 +1,52 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database");
 
-const Materiel= sequelize.define(
+const Materiel = sequelize.define(
     'Materiels',
     {
-        idMateriel:{
+        idMateriel: {
             type: DataTypes.INTEGER,
-            autoIncrement:true,
-            primaryKey:true,
+            autoIncrement: true,
+            primaryKey: true,
             allowNull: false,
         },
-        nomMateriel:{
-            type:DataTypes.STRING(30),
-            allowNull:false,
-            validate:{
-                len:[1,30]
+        nomMateriel: {
+            type: DataTypes.STRING(30),
+            allowNull: false,
+            validate: {
+                len: [1, 30]
             }
-            
+
         },
-        versionMateriel:{
+        versionMateriel: {
             type: DataTypes.STRING(15),
-            allowNull:false,
+            allowNull: false,
             validate: {
                 len: [3, 15]
-              }
+            }
         },
-        referenceMateriel:{
+        referenceMateriel: {
             type: DataTypes.STRING(5),
-            allowNull:false,
+            allowNull: false,
             validate: {
                 len: [5, 5]
-              }
+            }
         },
-        etatMateriel:{
-            type: DataTypes.ENUM(["DISPONIBLE","EMPRUNTER"]),
-            defaultValue:"DISPONIBLE",
-            allowNull:false,
+        etatMateriel: {
+            type: DataTypes.ENUM(["DISPONIBLE", "EMPRUNTER"]),
+            defaultValue: "DISPONIBLE",
+            allowNull: false,
         },
-        photoMateriel:{
+        photoMateriel: {
             type: DataTypes.STRING(255),
-            allowNull:true,
+            allowNull: true,
         },
-        numeroTelephoneMateriel:{
+        numeroTelephoneMateriel: {
             type: DataTypes.INTEGER(10),
-            allowNull:true,
+            allowNull: true,
         },
     }
-    
+
 );
 
 Materiel.sync({ force: true });

@@ -1,11 +1,11 @@
 const express = require('express');
-const sequelize=require("./config/database")
-const AuthentificationRoutes= require("./routes/AuthentificationRoutes")
+const sequelize = require("./config/database")
+const AuthentificationRoutes = require("./routes/AuthentificationRoutes")
 const cookieParser = require('cookie-parser');
 require("dotenv").config();
 
 const PORT = process.env.PORT || 8080;
-const admin = require("./config/firebase"); 
+const admin = require("./config/firebase");
 
 const app = express();
 
