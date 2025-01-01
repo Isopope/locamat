@@ -2,8 +2,8 @@ const admin = require("../config/firebase");
 const Utilisateur = require("../models/Utilisateur");
 
 exports.createUser = async (request, response) => {
-    const { emailUtilisateur, password, nomUtilisateur, prenomUtilisateur, matriculeUtilisateur } = request.body;
-
+    const { emailUtilisateur, password, nomUtilisateur, prenomUtilisateur } = request.body;
+    const matriculeUtilisateur= Math.floor(Math.random()*1000).toString()+ Date.now().toString().substring(10,13)+'t';
     try {
         const userFirebase = await admin.auth().createUser({
             emailUtilisateur,
@@ -16,7 +16,7 @@ exports.createUser = async (request, response) => {
             prenomUtilisateur,
             uidUtilisateur: userFirebase.uid,
             emailUtilisateur: emailUtilisateur,
-            matriculeUtilisateur,
+            matriculeUtilisateur: matriculeUtilisateur,
             roleUtilisateur: 'EMPRUNTEUR',
         });
 
@@ -50,6 +50,27 @@ exports.getUserById = async (request, response) => {
     const id = request.params.id;
     try {
         const user = await Utilisateur.findByPk(id);
+        if (user) {
+            response.status(200).json({
+                message: "Utilisateur récupéré avec succès",
+                user,
+            });
+        } else {
+            response.status(404).json({ message: "Utilisateur non trouvé" });
+        }
+    } catch (error) {
+        console.error("Erreur de récupération de l'utilisateur :", error);
+        response.status(500).json({
+            message: "Erreur de récupération de l'utilisateur",
+            error: error.message,
+        });
+    }
+};
+//je suppose un passage de parametre via url
+exports.getUserByUid = async (request, response) => {
+    const uid = request.params.uid;
+    try {
+        const user = await Utilisateur.findOne({where:{uidUtilisateur:uid}});
         if (user) {
             response.status(200).json({
                 message: "Utilisateur récupéré avec succès",
