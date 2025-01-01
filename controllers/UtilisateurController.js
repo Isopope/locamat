@@ -117,3 +117,25 @@ exports.deleteUser = async (request, response) => {
         });
     }
 };
+
+exports.login=async(request,response)=>{
+    const {frontToken}=request.body;
+    try{
+        const userToken= await admin.auth().verifyIdToken(frontToken);
+        const uid=userToken.uid;
+        const userDB= await Utilisateur.findOne({where:{uidUtilisateur:uid}});
+        if(userDB){
+            response.status(200).json({message:"Utilisateur connecté avec succès", authenticatedUser:userDB.get()});
+        }else{
+            response.status(404).json({message:"Utilisateur non trouvé"});
+        }
+
+    }catch(error){
+        console.error("Erreur de connexion de l'utilisateur :", error);
+        response.status(500).json({
+            message: "Erreur de connexion de l'utilisateur",
+            error: error.message,
+        });
+    }
+    
+}
