@@ -49,6 +49,6 @@ const Materiel = sequelize.define(
 
 );
 
-Materiel.sync({ force: true });
-console.log('The table for the Materiel model was just (re)created!');
+//Materiel.sync({ force: true });
+//console.log('The table for the Materiel model was just (re)created!');
 module.exports = Materiel;
