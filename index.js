@@ -7,7 +7,6 @@ const cookieParser = require('cookie-parser');
 require("dotenv").config();
 
 const PORT = process.env.PORT || 8080;
-const admin = require("./config/firebase");
 const baseUri="/api/v1";
 
 const app = express();
