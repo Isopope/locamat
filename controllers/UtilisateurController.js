@@ -2,11 +2,11 @@ const admin = require("../config/firebase");
 const Utilisateur = require("../models/Utilisateur");
 
 exports.createUser = async (request, response) => {
-    const { email, password, nomUtilisateur, prenomUtilisateur, matriculeUtilisateur } = request.body;
+    const { emailUtilisateur, password, nomUtilisateur, prenomUtilisateur, matriculeUtilisateur } = request.body;
 
     try {
         const userFirebase = await admin.auth().createUser({
-            email,
+            emailUtilisateur,
             password,
             displayName: `${nomUtilisateur} ${prenomUtilisateur}`,
         });
@@ -15,7 +15,7 @@ exports.createUser = async (request, response) => {
             nomUtilisateur,
             prenomUtilisateur,
             uidUtilisateur: userFirebase.uid,
-            emailUtilisateur: email,
+            emailUtilisateur: emailUtilisateur,
             matriculeUtilisateur,
             roleUtilisateur: 'EMPRUNTEUR',
         });
