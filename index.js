@@ -2,6 +2,7 @@ const express = require('express');
 const sequelize = require("./config/database")
 const AuthentificationRoutes = require("./routes/AuthentificationRoutes")
 const UtilisateurRoutes = require("./routes/UtilisateurRoutes")
+const MaterielRoutes=require("./routes/MaterielRoutes")
 const cookieParser = require('cookie-parser');
 require("dotenv").config();
 
@@ -16,6 +17,7 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(baseUri+"/auth", AuthentificationRoutes);
 app.use(baseUri, UtilisateurRoutes);
+app.use(baseUri,MaterielRoutes);
 
 app.get('/', (req, res) => {
   res.send('Hello World');
