@@ -41,7 +41,7 @@ exports.updateMateriel=async(request,response)=>{
     if(id){
         try{
             const materiel=await Materiel.findByPk(id);
-            //pensez a gerer la rg du champ reference pour  gerer les app en fonction d'une listbox ou autres presente dans le front (AN pour android, AP pour apple et XX pour les autres)
+            //pensez a gerer la rg du champ "referenceMateriel" pour  gerer les app en fonction d'une listbox ou autres presente dans le front (AN pour android, AP pour apple et XX pour les autres)
             if(materiel){
                 await Materiel.update({
                     nomMateriel,
