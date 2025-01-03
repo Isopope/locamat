@@ -37,9 +37,9 @@ exports.createEmprunt = async (request, response) => {
       materiel.etatMateriel = 'EMPRUNTER';
       await materiel.save();
   
-      res.status(201).json({ message: 'Emprunt creer avec succes', emprunt });
+      response.status(201).json({ message: 'Emprunt creer avec succes', emprunt });
     } catch (error) {
       console.error('Erreur lors de la création de l\'emprunt :', error);
-      res.status(500).json({ message: 'Erreur lors de la creation de l\'emprunt', error: error.message });
+      response.status(500).json({ message: 'Erreur lors de la creation de l\'emprunt', error: error.message });
     }
   };
