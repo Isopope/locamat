@@ -45,14 +45,15 @@ exports.createEmprunt = async (request, response) => {
   };
 
   exports.rendreMateriel= async(request, response)=>{
-    const {idEmprunt}=request.params;
+    const idEmprunt=request.params.id;
     if(idEmprunt){
       try{
         const emprunt=await Emprunt.findByPk(idEmprunt);
         if(emprunt){
           emprunt.dateRenduEmpruntEffectif= new Date();
           await emprunt.save();
-          const materiel= await Materiel.findOne({where:{idMateriel:emprunt.idMateriel}});
+          const materiel= await Materiel.findOne({where:{idMateriel:emprunt.IdMateriel}});
+          
           if (materiel) {
             materiel.etatMateriel = 'DISPONIBLE';
             await materiel.save();
@@ -72,3 +73,19 @@ exports.createEmprunt = async (request, response) => {
   }
 
   }
+
+exports.getMyEmprunts= async (request, response)=>{
+  const idUtilisateur=request.params.id;
+  if(idUtilisateur){
+    try{
+      const emprunts=await Emprunt.findAll({where:{idUtilisateur}});
+      return response.status(200).json({message:'liste des emprunts', emprunts:emprunts});
+    }catch(error){
+      console.error('Erreur lors de la récupération des emprunts :', error);
+      return response.status(500).json({message:'Erreur lors de la récupération des emprunts', error:error.message});
+    }
+  }else {
+    return response.status(400).json({ message: 'id utilisateur manquant' });
+  }
+ 
+}

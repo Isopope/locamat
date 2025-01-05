@@ -35,7 +35,7 @@ exports.getMaterielById=async(request,response)=>{
     }
 }
 
-exports.getAllMateriel=async (request,response)=>{
+exports.getAllMateriels=async (request,response)=>{
     try{
         const materiels=await Materiel.findAll();
         response.status(200).json({message:"Tous les materiels ont ete recuperes", materiel:materiels});
