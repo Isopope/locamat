@@ -35,6 +35,18 @@ exports.getMaterielById=async(request,response)=>{
     }
 }
 
+exports.getAllMateriel=async (request,response)=>{
+    try{
+        const materiels=await Materiel.findAll();
+        response.status(200).json({message:"Tous les materiels ont ete recuperes", materiel:materiels});
+
+    }catch(error){
+        console.error({message:"un probleme est survenue", error:error.message});
+        response.status(500).json({message:"Erreur lors de la recuperation des materiels", error:error.message});
+
+    }
+}
+
 exports.updateMateriel=async(request,response)=>{
     const id=request.params.id;
     const {nomMateriel,versionMateriel,referenceMateriel,etatMateriel, photoMateriel,numeroTelephoneMateriel}=request.body;
