@@ -47,7 +47,6 @@ exports.updateMateriel=async(request,response)=>{
                     nomMateriel,
                     versionMateriel,
                     referenceMateriel,
-                    etatMateriel,
                     photoMateriel,
                     numeroTelephoneMateriel
                 },{where:{idMateriel:id}});

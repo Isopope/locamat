@@ -43,3 +43,32 @@ exports.createEmprunt = async (request, response) => {
       response.status(500).json({ message: 'Erreur lors de la creation de l\'emprunt', error: error.message });
     }
   };
+
+  exports.rendreMateriel= async(request, response)=>{
+    const {idEmprunt}=request.params;
+    if(idEmprunt){
+      try{
+        const emprunt=await Emprunt.findByPk(idEmprunt);
+        if(emprunt){
+          emprunt.dateRenduEmpruntEffectif= new Date();
+          await emprunt.save();
+          const materiel= await Materiel.findOne({where:{idMateriel:emprunt.idMateriel}});
+          if (materiel) {
+            materiel.etatMateriel = 'DISPONIBLE';
+            await materiel.save();
+          } else {
+            return response.status(404).json({ message: 'materiel non trouve' });
+          }
+          return response.status(200).json({message:'le materiel a bien ete rendu'});
+        }else{
+          return response.status(404).json({message:'emprunt non trouve'});
+        }
+      }catch(error){
+        console.error('Erreur lors de la rendu du materiel :', error);
+        return response.status(500).json({message:'Erreur lors du rendu du materiel', error:error.message});
+      }
+    }else {
+      return response.status(400).json({ message: 'id emprunt manquant' });
+  }
+
+  }
